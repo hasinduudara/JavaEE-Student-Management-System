@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration System</title>
+    <link
+      rel="stylesheet"
+      href="/src/main/java/org/example/frontend/styles.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <!-- Form Card -->
+          <div class="glass-card mb-4">
+            <div class="card-header header-gradient text-white py-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0 fw-semibold">
+                  <i class="mdi mdi-account-school-outline me-2"></i>
+                  Student Registration System
+                </h4>
+              </div>
+            </div>
+            <div class="card-body p-4">
+              <form id="studentForm">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="floating-label">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="studentId"
+                        placeholder=" "
+                      />
+                      <label for="studentId">Student ID</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-md-6">
+                    <div class="floating-label">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="studentName"
+                        placeholder=" "
+                        required
+                      />
+                      <label for="studentName">Full Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="floating-label">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="studentAge"
+                        placeholder=" "
+                        required
+                      />
+                      <label for="studentAge">Age</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-12">
+                    <div class="floating-label">
+                      <textarea
+                        class="form-control"
+                        id="studentAddress"
+                        rows="2"
+                        placeholder=" "
+                        required
+                      ></textarea>
+                      <label for="studentAddress">Address</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-md-6">
+                    <div class="floating-label">
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="studentPhone"
+                        placeholder=" "
+                        required
+                      />
+                      <label for="studentPhone">Phone Number</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="floating-label">
+                      <select class="form-select" id="studentCourse" required>
+                        <option value="" selected disabled></option>
+                        <option value="cs">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="se">Software Engineering</option>
+                        <option value="bcs">Business Computing</option>
+                      </select>
+                      <label for="studentCourse">Course</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4 action-buttons">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    onclick="saveStudent()"
+                  >
+                    <i class="mdi mdi-content-save"></i> Save
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    onclick="updateStudent()"
+                  >
+                    <i class="mdi mdi-pencil"></i> Update
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="deleteStudent()"
+                  >
+                    <i class="mdi mdi-delete"></i> Delete
+                  </button>
+                  <button type="reset" class="btn btn-secondary">
+                    <i class="mdi mdi-broom"></i> Clear
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Students Table -->
+          <div class="glass-card">
+            <div class="card-header bg-white py-3 border-bottom">
+              <h5 class="mb-0 fw-semibold text-dark">
+                <i class="mdi mdi-account-group me-2"></i>
+                Registered Students
+              </h5>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table
+                  class="table table-striped table-hover mb-0"
+                  id="studentsTable"
+                >
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Age</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>Course</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
