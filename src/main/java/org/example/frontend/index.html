@@ -307,8 +307,7 @@
         $.ajax({
           url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
           type: "PUT",
-          contentType: "application/json",
-          data: JSON.stringify(studentData),
+          data: studentData,
           success: function (response) {
             alert("Student Updated Successfully");
             clearForm();
