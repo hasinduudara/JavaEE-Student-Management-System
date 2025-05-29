@@ -16,7 +16,7 @@ public class StudentRegisterServlet extends HttpServlet {
 
     public void fixCROS(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         resp.setContentType("application/json");
     }
@@ -100,5 +100,122 @@ public class StudentRegisterServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        fixCROS(req, resp);
+
+        try {
+            Map<String, String> paramMap = getParametersFromRequest(req);
+
+            String studentId = paramMap.get("studentId");
+            String name = paramMap.get("name");
+            String age = paramMap.get("age");
+            String address = paramMap.get("address");
+            String phone = paramMap.get("phone");
+            String course = paramMap.get("course");
+
+            System.out.println("PUT parameters: " + paramMap);
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_registration",
+                    "root",
+                    "hasindu12345");
+
+            String query = "UPDATE students SET name = ?, age = ?, address = ?, phone = ?, course = ? WHERE student_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, age);
+            statement.setString(3, address);
+            statement.setString(4, phone);
+            statement.setString(5, course);
+            statement.setString(6, studentId);
+
+            int result = statement.executeUpdate();
+
+            if (result > 0) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("Student Updated Successfully");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("Student Update Failed");
+            }
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        fixCROS(req, resp);
+
+        try {
+            String studentId = req.getParameter("studentId");
+
+            if (studentId == null || studentId.isEmpty()) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("Student ID is required");
+                return;
+            }
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_registration",
+                    "root",
+                    "hasindu12345");
+
+            String query = "DELETE FROM students WHERE student_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, studentId);
+
+            int result = statement.executeUpdate();
+
+            if (result > 0) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("Student Deleted Successfully");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("Student Delete Failed");
+            }
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Map<String, String> getParametersFromRequest(HttpServletRequest req) throws IOException {
+        // Read request body as JSON
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        try (java.io.BufferedReader reader = req.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+        }
+
+        String data = buffer.toString();
+        if (data.isEmpty()) {
+            return new HashMap<>();
+        }
+
+        // Parse JSON data
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(data, Map.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        fixCROS(req, resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
