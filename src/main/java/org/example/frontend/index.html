@@ -41,6 +41,7 @@
                           class="form-control"
                           id="studentId"
                           placeholder=" "
+                          required
                   />
                   <label for="studentId">Student ID</label>
                 </div>
@@ -106,10 +107,10 @@
                 <div class="floating-label">
                   <select class="form-select" id="studentCourse" required>
                     <option value="" selected disabled></option>
-                    <option value="cs">Computer Science</option>
-                    <option value="it">Information Technology</option>
-                    <option value="se">Software Engineering</option>
-                    <option value="bcs">Business Computing</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Business Computing">Business Computing</option>
                   </select>
                   <label for="studentCourse">Course</label>
                 </div>
@@ -120,7 +121,7 @@
               <button
                       type="button"
                       class="btn btn-success"
-                      onclick="saveStudent()"
+                      onclick="saveStudents()"
               >
                 <i class="mdi mdi-content-save"></i> Save
               </button>
@@ -208,30 +209,70 @@
 
   function fetchStudents() {
     $.ajax({
-      url:'http://localhost:8080/Student_Management_System_Web_exploded/studentRegister',
+      url: 'http://localhost:8080/Student_Management_System_Web_exploded/studentRegister',
       type: 'GET',
       success: function (response) {
-        const studentsTable = $('#studentsTable');
-        studentsTable.empty(); // Clear existing rows
+        const tableBody = $('#studentsTable tbody');
+        tableBody.empty(); // Only clear the tbody, not the entire table
 
         response.forEach(student => {
           const row = `
-            <tr>
-              <td class="student-id">${student.studentId}</td>
+          <tr>
+            <td class="student-id">${student.studentId}</td>
             <td class="student-name">${student.studentName}</td>
             <td class="student-age">${student.studentAge}</td>
             <td class="student-address">${student.studentAddress}</td>
             <td class="student-phone">${student.studentPhone}</td>
             <td class="student-course">${student.studentCourse}</td>
-            </tr>
-            `;
-          studentsTable.append(row);
+          </tr>
+        `;
+          tableBody.append(row);
         });
       },
-        error: function (error) {
-            console.error('Error fetching students:', error);
-            alert('Failed to fetch students');
+      error: function (error) {
+        console.error('Error fetching students:', error);
+        alert('Failed to fetch students');
+      }
+    });
+  }
+
+  function saveStudents() {
+    const studentData = {
+      studentId: $('#studentId').val(),
+      name: $('#studentName').val(),
+      age: $('#studentAge').val(),
+      address: $('#studentAddress').val(),
+      phone: $('#studentPhone').val(),
+      course: $('#studentCourse').val()
+    };
+
+    if (!studentData.studentId || !studentData.name ||
+            !studentData.age || !studentData.address ||
+            !studentData.phone || !studentData.course) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    $.ajax({
+      url: 'http://localhost:8080/Student_Management_System_Web_exploded/studentRegister',
+      type: 'POST',
+      data: studentData,
+      success: function (response) {
+        alert('Student Saved Successfully');
+        clearForm();
+        fetchStudents();
+      },
+      error: function (xhr) {
+        // Check if the status is actually successful despite being in error callback
+        if (xhr.status === 200) {
+          alert('Student Saved Successfully');
+          clearForm();
+          fetchStudents();
+        } else {
+          console.error('Error saving student:', xhr);
+          alert('Failed To Save Student');
         }
+      }
     });
   }
 </script>
