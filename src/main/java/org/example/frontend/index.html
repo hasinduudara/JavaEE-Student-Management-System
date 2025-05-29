@@ -1,231 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Registration System</title>
-    <link
-      rel="stylesheet"
-      href="/src/main/java/org/example/frontend/styles.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <!-- Form Card -->
-          <div class="glass-card mb-4">
-            <div class="card-header header-gradient text-white py-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0 fw-semibold">
-                  <i class="mdi mdi-account-school-outline me-2"></i>
-                  Student Registration System
-                </h4>
-              </div>
-            </div>
-            <div class="card-body p-4">
-              <form id="studentForm">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="floating-label">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="studentId"
-                        placeholder=" "
-                        required
-                      />
-                      <label for="studentId">Student ID</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-2">
-                  <div class="col-md-6">
-                    <div class="floating-label">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="studentName"
-                        placeholder=" "
-                        required
-                      />
-                      <label for="studentName">Full Name</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="floating-label">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="studentAge"
-                        placeholder=" "
-                        required
-                      />
-                      <label for="studentAge">Age</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-2">
-                  <div class="col-12">
-                    <div class="floating-label">
-                      <textarea
-                        class="form-control"
-                        id="studentAddress"
-                        rows="2"
-                        placeholder=" "
-                        required
-                      ></textarea>
-                      <label for="studentAddress">Address</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-2">
-                  <div class="col-md-6">
-                    <div class="floating-label">
-                      <input
-                        type="tel"
-                        class="form-control"
-                        id="studentPhone"
-                        placeholder=" "
-                        required
-                      />
-                      <label for="studentPhone">Phone Number</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="floating-label">
-                      <select class="form-select" id="studentCourse" required>
-                        <option value="" selected disabled></option>
-                        <option value="Computer Science">
-                          Computer Science
-                        </option>
-                        <option value="Information Technology">
-                          Information Technology
-                        </option>
-                        <option value="Software Engineering">
-                          Software Engineering
-                        </option>
-                        <option value="Business Computing">
-                          Business Computing
-                        </option>
-                      </select>
-                      <label for="studentCourse">Course</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="d-flex justify-content-between mt-4 action-buttons">
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    onclick="saveStudents()"
-                  >
-                    <i class="mdi mdi-content-save"></i> Save
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-warning"
-                    onclick="updateStudent()"
-                  >
-                    <i class="mdi mdi-pencil"></i> Update
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    onclick="deleteStudent()"
-                  >
-                    <i class="mdi mdi-delete"></i> Delete
-                  </button>
-                  <button type="reset" class="btn btn-secondary">
-                    <i class="mdi mdi-broom"></i> Clear
-                  </button>
-                </div>
-              </form>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration System</title>
+      <link
+        rel="stylesheet"
+        href="/src/main/java/org/example/frontend/styles.css"
+      />
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link
+          href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css"
+          rel="stylesheet"
+  />
+</head>
+<body>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <!-- Form Card -->
+      <div class="glass-card mb-4">
+        <div class="card-header header-gradient text-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-semibold">
+              <i class="mdi mdi-account-school-outline me-2"></i>
+              Student Registration System
+            </h4>
           </div>
-
-          <!-- Students Table -->
-          <div class="glass-card">
-            <div class="card-header bg-white py-3 border-bottom">
-              <h5 class="mb-0 fw-semibold text-dark">
-                <i class="mdi mdi-account-group me-2"></i>
-                Registered Students
-              </h5>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table
-                  class="table table-striped table-hover mb-0"
-                  id="studentsTable"
-                >
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Age</th>
-                      <th>Address</th>
-                      <th>Phone</th>
-                      <th>Course</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+        </div>
+        <div class="card-body p-4">
+          <form id="studentForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="floating-label">
+                  <input
+                          type="text"
+                          class="form-control"
+                          id="studentId"
+                          placeholder=" "
+                          required
+                  />
+                  <label for="studentId">Student ID</label>
+                </div>
               </div>
             </div>
+
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="floating-label">
+                  <input
+                          type="text"
+                          class="form-control"
+                          id="studentName"
+                          placeholder=" "
+                          required
+                  />
+                  <label for="studentName">Full Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="floating-label">
+                  <input
+                          type="number"
+                          class="form-control"
+                          id="studentAge"
+                          placeholder=" "
+                          required
+                  />
+                  <label for="studentAge">Age</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-12">
+                <div class="floating-label">
+                      <textarea
+                              class="form-control"
+                              id="studentAddress"
+                              rows="2"
+                              placeholder=" "
+                              required
+                      ></textarea>
+                  <label for="studentAddress">Address</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="floating-label">
+                  <input
+                          type="tel"
+                          class="form-control"
+                          id="studentPhone"
+                          placeholder=" "
+                          required
+                  />
+                  <label for="studentPhone">Phone Number</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="floating-label">
+                  <select class="form-select" id="studentCourse" required>
+                    <option value="" selected disabled></option>
+                    <option value="Computer Science">
+                      Computer Science
+                    </option>
+                    <option value="Information Technology">
+                      Information Technology
+                    </option>
+                    <option value="Software Engineering">
+                      Software Engineering
+                    </option>
+                    <option value="Business Computing">
+                      Business Computing
+                    </option>
+                  </select>
+                  <label for="studentCourse">Course</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4 action-buttons">
+              <button
+                      type="button"
+                      class="btn btn-success"
+                      onclick="saveStudents()"
+              >
+                <i class="mdi mdi-content-save"></i> Save
+              </button>
+              <button
+                      type="button"
+                      class="btn btn-warning"
+                      onclick="updateStudent()"
+              >
+                <i class="mdi mdi-pencil"></i> Update
+              </button>
+              <button
+                      type="button"
+                      class="btn btn-danger"
+                      onclick="deleteStudent()"
+              >
+                <i class="mdi mdi-delete"></i> Delete
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                <i class="mdi mdi-broom"></i> Clear
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Students Table -->
+      <div class="glass-card">
+        <div class="card-header bg-white py-3 border-bottom">
+          <h5 class="mb-0 fw-semibold text-dark">
+            <i class="mdi mdi-account-group me-2"></i>
+            Registered Students
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table
+                    class="table table-striped table-hover mb-0"
+                    id="studentsTable"
+            >
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Course</th>
+              </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        fetchStudents();
-      });
+<script>
+  $(document).ready(function () {
+    fetchStudents();
+  });
 
-      function clearForm() {
-        $("#studentId").val("");
-        $("#studentName").val("");
-        $("#studentAge").val("");
-        $("#studentAddress").val("");
-        $("#studentPhone").val("");
-        $("#studentCourse").val("");
-      }
+  function clearForm() {
+    $("#studentId").val("");
+    $("#studentName").val("");
+    $("#studentAge").val("");
+    $("#studentAddress").val("");
+    $("#studentPhone").val("");
+    $("#studentCourse").val("");
+  }
 
-      // New row click handler to populate form when a table row is clicked
-      $(document).on("click", "#studentsTable tbody tr", function () {
-        const row = $(this);
-        $("#studentId").val(row.find(".student-id").text());
-        $("#studentName").val(row.find(".student-name").text());
-        $("#studentAge").val(row.find(".student-age").text());
-        $("#studentAddress").val(row.find(".student-address").text());
-        $("#studentPhone").val(row.find(".student-phone").text());
-        $("#studentCourse").val(row.find(".student-course").text());
-      });
+  // New row click handler to populate form when a table row is clicked
+  $(document).on("click", "#studentsTable tbody tr", function () {
+    const row = $(this);
+    $("#studentId").val(row.find(".student-id").text());
+    $("#studentName").val(row.find(".student-name").text());
+    $("#studentAge").val(row.find(".student-age").text());
+    $("#studentAddress").val(row.find(".student-address").text());
+    $("#studentPhone").val(row.find(".student-phone").text());
+    $("#studentCourse").val(row.find(".student-course").text());
+  });
 
-      function fetchStudents() {
-        $.ajax({
-          url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
-          type: "GET",
-          success: function (response) {
-            const tableBody = $("#studentsTable tbody");
-            tableBody.empty();
+  function fetchStudents() {
+    $.ajax({
+      url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
+      type: "GET",
+      success: function (response) {
+        const tableBody = $("#studentsTable tbody");
+        tableBody.empty();
 
-            response.forEach((student) => {
-              const row = `
+        response.forEach((student) => {
+          const row = `
                     <tr>
                         <td class="student-id">${student.studentId}</td>
                         <td class="student-name">${student.studentName}</td>
@@ -235,128 +235,128 @@
                         <td class="student-course">${student.studentCourse}</td>
                     </tr>
                 `;
-              tableBody.append(row);
-            });
-          },
-          error: function (error) {
-            console.error("Error fetching students:", error);
-            alert("Failed to fetch students");
-          },
+          tableBody.append(row);
         });
-      }
+      },
+      error: function (error) {
+        console.error("Error fetching students:", error);
+        alert("Failed to fetch students");
+      },
+    });
+  }
 
-      function saveStudents() {
-        const studentData = {
-          studentId: $("#studentId").val(),
-          name: $("#studentName").val(),
-          age: $("#studentAge").val(),
-          address: $("#studentAddress").val(),
-          phone: $("#studentPhone").val(),
-          course: $("#studentCourse").val(),
-        };
+  function saveStudents() {
+    const studentData = {
+      studentId: $("#studentId").val(),
+      name: $("#studentName").val(),
+      age: $("#studentAge").val(),
+      address: $("#studentAddress").val(),
+      phone: $("#studentPhone").val(),
+      course: $("#studentCourse").val(),
+    };
 
-        if (
-                !studentData.studentId ||
-                !studentData.name ||
-                !studentData.age ||
-                !studentData.address ||
-                !studentData.phone ||
-                !studentData.course
-        ) {
-          alert("Please fill in all fields");
-          return;
+    if (
+            !studentData.studentId ||
+            !studentData.name ||
+            !studentData.age ||
+            !studentData.address ||
+            !studentData.phone ||
+            !studentData.course
+    ) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    $.ajax({
+      url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
+      type: "POST",
+      data: studentData,
+      success: function (response) {
+        alert("Student Saved Successfully");
+        clearForm();
+        fetchStudents();
+      },
+      error: function (xhr) {
+        if (xhr.status === 200) {
+          alert("Student Saved Successfully");
+          clearForm();
+          fetchStudents();
+        } else {
+          console.error("Error saving student:", xhr);
+          alert("Failed To Save Student");
         }
+      },
+    });
+  }
 
-        $.ajax({
-          url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
-          type: "POST",
-          data: studentData,
-          success: function (response) {
-            alert("Student Saved Successfully");
+  function updateStudent() {
+    const studentData = {
+      studentId: $("#studentId").val(),
+      name: $("#studentName").val(),
+      age: $("#studentAge").val(),
+      address: $("#studentAddress").val(),
+      phone: $("#studentPhone").val(),
+      course: $("#studentCourse").val(),
+    };
+
+    if (!studentData.studentId) {
+      alert("Please select a student to update");
+      return;
+    }
+
+    $.ajax({
+      url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
+      type: "PUT",
+      data: studentData,
+      contentType: "application/x-www-form-urlencoded",
+      success: function (response) {
+        alert("Student Updated Successfully");
+        clearForm();
+        fetchStudents();
+      },
+      error: function (xhr) {
+        if (xhr.status === 200) {
+          alert("Student Updated Successfully");
+          clearForm();
+          fetchStudents();
+        } else {
+          console.error("Error updating student:", xhr);
+          alert("Failed To Update Student: " + xhr.responseText);
+        }
+      }
+    });
+  }
+
+  function deleteStudent() {
+    const studentId = $("#studentId").val();
+
+    if (!studentId) {
+      alert("Please select a student to delete");
+      return;
+    }
+
+    if (confirm("Are you sure you want to delete this student?")) {
+      $.ajax({
+        url: `http://localhost:8080/Student_Management_System_Web_exploded/studentRegister?studentId=${studentId}`,
+        type: "DELETE",
+        success: function (response) {
+          alert("Student Deleted Successfully");
+          clearForm();
+          fetchStudents();
+        },
+        error: function (xhr) {
+          if (xhr.status === 200) {
+            alert("Student Deleted Successfully");
             clearForm();
             fetchStudents();
-          },
-          error: function (xhr) {
-            if (xhr.status === 200) {
-              alert("Student Saved Successfully");
-              clearForm();
-              fetchStudents();
-            } else {
-              console.error("Error saving student:", xhr);
-              alert("Failed To Save Student");
-            }
-          },
-        });
-      }
-
-      function updateStudent() {
-        const studentData = {
-          studentId: $("#studentId").val(),
-          name: $("#studentName").val(),
-          age: $("#studentAge").val(),
-          address: $("#studentAddress").val(),
-          phone: $("#studentPhone").val(),
-          course: $("#studentCourse").val(),
-        };
-
-        if (!studentData.studentId) {
-          alert("Please select a student to update");
-          return;
-        }
-
-        $.ajax({
-          url: "http://localhost:8080/Student_Management_System_Web_exploded/studentRegister",
-          type: "PUT",
-          data: studentData,
-          contentType: "application/x-www-form-urlencoded",
-          success: function (response) {
-            alert("Student Updated Successfully");
-            clearForm();
-            fetchStudents();
-          },
-          error: function (xhr) {
-            if (xhr.status === 200) {
-              alert("Student Updated Successfully");
-              clearForm();
-              fetchStudents();
-            } else {
-              console.error("Error updating student:", xhr);
-              alert("Failed To Update Student: " + xhr.responseText);
-            }
+          } else {
+            console.error("Error deleting student:", xhr);
+            alert("Failed To Delete Student");
           }
-        });
-      }
-
-      function deleteStudent() {
-        const studentId = $("#studentId").val();
-
-        if (!studentId) {
-          alert("Please select a student to delete");
-          return;
-        }
-
-        if (confirm("Are you sure you want to delete this student?")) {
-          $.ajax({
-            url: `http://localhost:8080/Student_Management_System_Web_exploded/studentRegister?studentId=${studentId}`,
-            type: "DELETE",
-            success: function (response) {
-              alert("Student Deleted Successfully");
-              clearForm();
-              fetchStudents();
-            },
-            error: function (xhr) {
-              if (xhr.status === 200) {
-                alert("Student Deleted Successfully");
-                clearForm();
-                fetchStudents();
-              } else {
-                console.error("Error deleting student:", xhr);
-                alert("Failed To Delete Student");
-              }
-            },
-          });
-        }
-      }
-    </script>
-  </body>
+        },
+      });
+    }
+  }
+</script>
+</body>
 </html>
