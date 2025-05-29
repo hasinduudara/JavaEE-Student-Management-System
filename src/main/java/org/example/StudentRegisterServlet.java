@@ -108,12 +108,14 @@ public class StudentRegisterServlet extends HttpServlet {
         fixCROS(req, resp);
 
         try {
-            String studentId = req.getParameter("studentId");
-            String name = req.getParameter("name");
-            String age = req.getParameter("age");
-            String address = req.getParameter("address");
-            String phone = req.getParameter("phone");
-            String course = req.getParameter("course");
+            Map<String, String> parameters = getParametersFromRequest(req);
+
+            String studentId = parameters.get("studentId");
+            String name = parameters.get("name");
+            String age = parameters.get("age");
+            String address = parameters.get("address");
+            String phone = parameters.get("phone");
+            String course = parameters.get("course");
 
             if (studentId == null || studentId.isEmpty()) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
